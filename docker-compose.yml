@@ -6,20 +6,20 @@ services:
     image: redis
     expose:
       - 6379
-
+      
   redis-commander:
     container_name: redis-commander
     image: rediscommander/redis-commander:latest
     restart: always
     environment:
-    - REDIS_HOSTS=local:redis:6379
+    - REDIS_HOSTS=${REDIS_HOSTS_COMMANDER}
     ports:
     - "8081:8081"
       
   workerui:
     restart: always
     environment:
-      - REDIS_HOSTS=redis://redis:6379
+      - REDIS_HOSTS=${REDIS_HOSTS_WORKUI}
     build:
         context: .
         dockerfile: Dockerfile.worker
